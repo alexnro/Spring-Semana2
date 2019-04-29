@@ -7,6 +7,7 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 
@@ -30,7 +31,18 @@ public class AgendaController {
 
     @RequestMapping(path="/contacte/{id}", produces= MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public Persona getPersona(@PathVariable String id) {
-        return agenda.recupera(id);
+    public Persona getPersona(@PathVariable String id) throws Exception {
+        if (agenda.recupera(id) != null) {
+            return agenda.recupera(id);
+        } else {
+            Exception exception = new Exception();
+            throw exception;
+        }
+    }
+
+    @RequestMapping(path="/afegir", method=RequestMethod.POST)
+    @ResponseBody
+    public void afegirNouUsuari(String id, String nom, String telefon) {
+        agenda.inserta(id, nom, telefon);
     }
 }
