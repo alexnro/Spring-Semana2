@@ -18,4 +18,10 @@ public class AgendaController {
     public int nombreContactes() {
         return agenda.nombreContactes();
     }
+
+    @RequestMapping("/telefon")
+    @ResponseBody
+    public String getTelefon(String id) {
+        return agenda.recupera(id).getTelefon();
+    }
 }
